@@ -1,0 +1,11 @@
+
+Each model serves a specific purpose in building a structured and engaging user experience:
+✅ User Model → Manages authentication.
+✅ Message Model → Stores posts in the feed.
+✅ Category Model → Organizes messages.
+✅ Portal Model → Groups messages by category.
+✅ View Model → Tracks who views messages (for analytics & badges).
+✅ Feedback Model → Tracks likes/comments.
+✅ Achievement Model → Stores earned badges & achievements.
+
+ tracks user behavior, engagement, and achievements, for building leaderboards, analytics, and personalized experiences later on.

@@ -20,9 +20,9 @@ def get_User_By_Id(id):
     return jsonify({"error": "User not found"}), 404 
 
 #find user by username
-@app.route('/users?username=<user_name>', methods=['GET'])
-def get_User_By_Name(user_name):
-    user = User.query.filter_by(user_name=user_name).first()
+@app.route('/users?username=<username>', methods=['GET'])
+def get_User_By_Name(username):
+    user = User.query.filter_by(username=username).first()
     print(f'my_log:{user}')
     if user:
         return jsonify({"users": user.to_json()})
@@ -32,9 +32,17 @@ def get_User_By_Name(user_name):
 #create user
 @app.route('/signup', methods=['POST'])
 def create_user():
-    data = request.get_json()
+    # Print raw request body for debugging
+    print("Raw request body:", request.data)
+    
+    # Parse JSON data
+    data = request.get_json(force=True)
+    print("Parsed JSON data:", data)
+
     username = data.get('username')
     password =  data.get('password')
+
+    print(f"Username: {username}, Password: {password}")
 
     if not username or not password:
         return jsonify({'message': 'Username and password are required'}), 400
@@ -42,9 +50,9 @@ def create_user():
     new_user = User(username=username)
     new_user.set_password(password)
 
-    existing_user = user = User.query.filter_by(username=username).first()
+    existing_user = User.query.filter_by(username=username).first()
     if existing_user:
-        return jsonify({'message': 'Username already taken'}), 409
+        return jsonify({'message': 'Account already exists'}), 409
 
     db.session.add(new_user)
     db.session.commit()
@@ -60,7 +68,7 @@ def create_user():
 
 #updating user
 @app.route('/users/<int:id>', methods=['PATCH']) #
-def update_user():
+def update_user(id):
     user = User.query.get(id)
     
     data = request.get_json()
@@ -76,7 +84,7 @@ def update_user():
 
 #deleting user
 @app.route('/users/<int:id>', methods=['DELETE'])
-def delete_user():
+def delete_user(id):
     user = User.query.get(id)
 
     if not user:

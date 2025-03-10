@@ -11,7 +11,7 @@ cors = CORS(app,origins=('*'), supports_credentials=True)
 # bcrypt = bcrypt(app)
 
 
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db" 
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db = SQLAlchemy(app)

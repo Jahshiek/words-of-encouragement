@@ -17,8 +17,8 @@ if __name__ == '__main__':
         print(tables)
 
     # Check if user already exists to avoid duplicates
-        if not User.query.filter_by(user_name="john_doe").first():
-            new_user = User(user_name="john_doe", password="123me")
+        if not User.query.filter_by(username="john_doe").first():
+            new_user = User(username="john_doe", password="123me")
             db.session.add(new_user)
             db.session.commit()
             print("User added!")
